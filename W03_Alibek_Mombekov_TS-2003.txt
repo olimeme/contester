@@ -1,0 +1,506 @@
+301.
+#include <iostream>
+using namespace std;
+int main() {
+  float x,y,z;
+  cin >> x >> y >> z;
+  if (x < y&&y < z&&x < z) //if x<y<z
+    cout << "YES";	   //output yes 
+  else
+    cout << "NO";	   //else output no
+  return 0;
+}
+
+302.
+#include <iostream>
+#include <cmath>
+using namespace std;
+int main() {
+  float a,b,c;
+  cin >> a >> b >> c;
+  if (a <= b && b <= c && a <= c) { //if а<=b<=с
+    cout << a*2<< endl;		    //double each number 
+    cout << b*2<< endl;
+    cout << c*2<<endl;
+  }
+  else {			    //else output the absolute value 
+    cout << abs(a) << endl;
+    cout << abs(b) << endl;
+    cout << abs(c) << endl;
+  }
+  return 0;
+}
+
+303.
+#include <iostream>
+#include <cmath>
+using namespace std;
+int main() {
+  float a,b,c;
+  cin >> a >> b >> c;
+  float d = b * b - 4 * c * a;			//calculate Discriminant 
+  if (d > 0) {					//if discriminant > 0
+    float x1 = ((-b) + sqrt(d)) / (2 * a);	//calculate and print both of its values 
+    float x2 = ((-b) - sqrt(d)) / (2 * a);
+    cout << x1 << " " << x2;
+  }
+  else if (d == 0) {				//if discriminant =  0
+    int x = (-b) / (2 * a);			//calculate and print only one value 
+    cout << x;
+  }
+  else						//if doesn't satisfy any of the above 
+    cout << "no solution";			//print no solution 
+  return 0;
+}
+
+304.
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+int main() {
+  float a, b, c;
+  cin >> a >> b >> c;
+  float min, max;			
+  max = a;				//set a to biggest number 
+  if (b > max)				//if b is bigger, make b the biggest number 
+    max = b;
+  if (c > max)				//if c is bigger, make c the biggest number
+    max = c;
+
+  min = a;				//set a to smallest number
+  if (b < min)				//if b is smaller, make b the smallest number 
+    min = b;
+  if (c < min)				//if c is smaller, make c the smallest number 
+    min = c;
+
+  //cout << (float)(min) << " " << (float)(max);
+  printf("%.1f %.1f\n", min, max);      //print both of them to the first decimal place 
+  return 0;
+}
+
+305.
+#include <iostream>
+using namespace std;
+int main() {
+  float a, b, c;
+  cin >> a >> b >> c;
+  if(a+b>c&&a+c>b&&b+c>a)		//if sum of two side is bigger than the third one for each side
+    cout << "YES";			//print YES
+  else
+    cout << "NO";			//else print NO
+  return 0;
+}
+
+306.
+#include <iostream>
+using namespace std;
+int main() {
+  int year;
+  cin >> year;
+  int days;
+  if (year % 2 == 0) {					//if year is a leap year
+    days = 366;						//set days equal to 366
+    if ((year % 100 == 0) && (year % 400 != 0))		//also if year is divisible by 100 but not by 400
+      days = 365;					//then set days equal to 365
+  }
+  else
+    days = 365;						//if year is not a leap year, then set days equal to 365
+  cout << days;
+  return 0;
+}
+
+307.
+#include <iostream>
+using namespace std;
+int main() {
+  int a, b, c;
+  cin >> a >> b >> c;
+  if (c > 0 && a <= 31 && a > 0 && b > 0 && b <= 12)			//check if correct date is entered
+  {
+    if (b == 2) {							//if month is feburary check if year is leap year
+      if (((c % 4 == 0) && (c % 100 != 0)) || (c % 400 == 0)) {
+        if (a <= 29)							//if day is less than or equals to 29 then print yes else print no
+          cout << "yes";	
+        else
+          cout << "no";								
+      }
+      else {								//if year is not leap year
+        if (a <= 28)							//if day is less than or equals to 28 then print yes else print no
+          cout << "yes";
+        else
+          cout << "no";
+      }
+    }
+    else if (b == 4 || b == 6 || b == 9 || b == 11) {			//else if month is april, june, september or november 
+      if (a <= 30)							//check if day less than or equals 30 
+        cout << "yes";
+      else
+        cout << "no";
+    }
+    else								//else if its another month than print yes, because the date is valid 
+      cout << "yes";
+  }
+  else									//print no if date is invalid 
+    cout << "no";
+  return 0;
+}
+
+308.
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+  int year;
+  cin >> year;
+  int respectiveYear = 1900;			//year 1900 will be the year to which all the calculations will be respective to 
+  int respectiveDay = 7;			//teachers day in 1900 was on 7th of october 
+  int howManyLeapYearsPassed = 0;		//counts how many leap years have passed 
+  int differenceInyears = abs(year - respectiveYear);	//difference in years 
+  for (int i = 1; i <= differenceInyears; i++) {
+    if (i % 4 == 0)
+      howManyLeapYearsPassed++;			//if 4 years have passed add 1 to leap year counter 
+  }
+  
+  if (year > respectiveYear) {			//if inputed year is greater than 1900
+    int yearsLeft = differenceInyears % 4;	//count how many years passed since the last leap year 
+    respectiveDay += howManyLeapYearsPassed * 2;//every new leap year teachers day moves 2 days forward
+    respectiveDay = respectiveDay % 7;		//if days are over 7, than round it to day of a new week 
+    if (respectiveDay == 0) {			//if day is equal to 0 than set it to 7th day 
+      respectiveDay = 7;
+    }
+    respectiveDay -= yearsLeft;			//then subtract years left from the last leap year 
+    if (respectiveDay <= 0)			//lastly check if the teachers day is negative 
+      respectiveDay = 7 - abs(respectiveDay);	//if so, subtract the change of days from 7 
+  }
+  cout << respectiveDay;
+  return 0;
+}
+
+309.
+#include <iostream>
+using namespace std;
+int main() {
+  int a, b, c;
+  cin >> a >> b >> c;
+  if (c > 0 && a <= 31 && a > 0 && b > 0 && b <= 12)                    //check if valid date is entered
+  {
+    if (b == 2) {							//if its feburary
+      if (((c % 4 == 0) && (c % 100 != 0)) || (c % 400 == 0)) {		//check if its leap year
+        if (a == 29)							//then check its the last day of a month 
+        {								//if it is, move to march 1st
+          b = 3;
+          a = 1;
+          cout << a << " " << b << " " << c;
+        }
+        else {								//else just move to the next day 
+          a++;
+          cout << a << " " << b << " " << c;
+        }
+      }
+      else {								//if its not a leap year 
+        if (a == 28)							//and if its the last day of a month 
+        {								//then move to march 1st
+          b = 3;
+          a = 1;
+          cout << a << " " << b << " " << c;
+        }
+        else {								//else ust move to the next day
+          a++;
+          cout << a << " " << b << " " << c;
+        }
+      }
+    }
+    else if (b == 4 || b == 6 || b == 9 || b == 11) {			//if month contains 30 days
+      if (a == 30)							//check if its the last day of a month 
+      {
+        b++;								//move to the next month 1st day
+        a = 1;
+        cout << a <<" "<< b <<" "<< c;
+      }
+      else {								//else just move to the next day
+        a++;
+        cout << a << " " << b << " " << c;
+      }
+    }
+    else if (b == 12) {							//if its december 31st
+      if (a == 31)
+      {									//move to january 1st of next year 
+        c++;
+        b = 1;
+        a = 1;
+        cout << a << " " << b << " " << c;
+      }
+      else{								//else just update the day
+        a++;
+        cout << a << " " << b << " " << c;
+      }
+    }
+    else {								//if its the last day of any other month 
+      if (a == 31) {							//move to the next month 
+        b++;
+        a=1;
+        cout << a << " " << b << " " << c;
+      }									//or move to the next day
+      else {
+        a++;
+        cout << a << " " << b << " " << c;
+      }
+    }
+  }
+  return 0;
+}
+
+310.
+#include <iostream>
+using namespace std;
+int main() {
+  int n;
+  int twoPwr = 1;
+  cin >> n;
+  for (int i = 0; i < n; i++) 	//move from 0 to n
+    twoPwr *= 2;		//while miltiplying twoPwr by 2
+  cout << twoPwr;
+  return 0;
+}
+
+311.
+#include <iostream>
+using namespace std;
+int main() {
+  int n;
+  int factorial = 1;
+  cin >> n;
+  for (int i = 1; i <= n; i++) 	//move from 1 to n 
+    factorial *= i;		//while multiplying each number to calculate factorial of n
+  cout << factorial;
+  return 0;
+}
+
+312.
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+int main() {
+  int n;
+  cin >> n;
+  float sum;
+  float sumInBracket = 1;
+  for (int i = 1; i <= n; i++) {		//move from 1 to n
+    sum = 1.0 + (1.0 / (i*i));			//meanwhile calculate 1+1/(i^2)
+    sumInBracket *= sum;			//then multiply it to sumInBracket 
+  }
+  cout << sumInBracket;
+  //printf("%.1f", sumInBracket);
+  return 0;
+}
+
+314.
+#include <iostream>
+#include <math.h>
+using namespace std;
+int main() {
+  int n;
+  float sqRootSum = 0;
+  float sum = 0;
+  cin >> n;
+  for (int i = 0; i < n; i++)			//move from 0 to n
+    sqRootSum = sqrt(2 + sqRootSum);		//set sqRootSum equal to square root of 2 plus its previous value
+  cout << sqRootSum;
+  return 0;
+}
+
+315.
+#include <iostream>
+#include <math.h>
+using namespace std;
+int main() {
+  int n;
+  float a;
+  cin >> a >> n;
+  float prod = 0;
+  for (int i = 0; i < n; i++) 		//multiplication is a + a + a + a ..... n times
+    prod += a;				//so move from 1 to n while adding a
+  cout << prod;
+  return 0;
+}
+
+316.
+#include <iostream>
+#include <math.h>
+using namespace std;
+int main() {
+  int n;
+  float a;
+  cin >> a >> n;
+  float prod = 0;
+  float sum = 1;
+  for (int i = 0; i < n; i++) { 	//move from 0 to n
+    sum*= a+i;				//multiply a+i to sum 
+    prod = sum;				//then set prod equal to that sum
+  }
+  cout << prod;
+  return 0;
+}
+
+317.
+#include <iostream>
+#include <math.h>
+using namespace std;
+int main() {
+  int n;
+  float a;
+  cin >> a >> n;
+  float sum = 0;
+  float prodOfFraction = 1.0;
+  for (int i = 0; i <= n; i++) {	//move from 0 to n 
+    prodOfFraction *= a+i;		//calculate a(a+1)..(a+n)
+    sum += 1.0 / prodOfFraction;	//then add 1 over the calculated value to sum
+  }
+  cout << sum;
+  return 0;
+}
+
+318.
+#include <iostream>
+#include <math.h>
+using namespace std;
+int main() {
+  int n;
+  float a;
+  cin >> a >> n;
+  float sum = 1.0/a;
+  float power;
+  for (int i = 1; i <= n; i++) 	//move from 1 to n 
+    sum += 1.0 / pow(a,2*i);	//and calculate the sum of 1/a^(2*i)
+  cout << sum;
+  return 0;
+}
+
+319.
+#include <iostream>
+#include <math.h>
+using namespace std;
+int main() {
+  float x;
+  cin >> x;
+  float sum = x;
+  long long factorial = 1;                //to calculate factorial on a go 
+  int oddChecker = 1;                //check if next sign of value will be + or -
+  for (int i = 1; i <= 13; i++) {          //from 1 to 13
+    factorial *= i;                //meanwhile calculate the factorial 
+    if (i % 2 == 1 && i != 1) {              //if i is odd and not equal to 1 then 
+      if (oddChecker % 2 == 0)              //check if oddChecker is even 
+        sum += pow(x, i) / factorial;          //if so add
+      else
+        sum -= pow(x, i) / factorial;          //else subtract 
+      oddChecker++;                    //counter + 1
+    }
+  }
+  cout << sum;              // print the answer
+  return 0;
+}
+
+320.
+#include <iostream>
+#include <math.h>
+using namespace std;
+int main() {
+  float x, a;
+  int n;
+  cin >> x >> a >> n;
+  float sum;
+  float bracketSquare = x + a; 		//calculate x + a before adding brackets 
+  for (int i = 0; i < n; i++) {		//move from 0 to n
+    sum = pow(bracketSquare, 2);	//square the sum of x + a
+    bracketSquare = sum + a;		//then add a
+  }
+  cout << bracketSquare;
+  return 0;
+}
+
+321.
+#include <iostream>
+#include <math.h>
+using namespace std;
+int main() {
+  float x;
+  cin >> x;
+  float answer=1.0;
+  for (int i = 2; i <= 64; i*=2) {	//move twice as bigger than the previous step from 2 to 64 with 
+    answer *= ((x - i) / (x - (i-1)));	//and then multiply (x-i)/(x-(i-1))
+  }
+  cout << answer;
+  return 0;
+}
+
+322.
+#include <iostream>
+#include <math.h>
+using namespace std;
+int main() {
+  int x;
+  cin >> x;
+  float sum = 0.0;
+  float prevDivider = 1 / 103;		//first fraction 
+  float currDivider;
+  for (int i = 101; i > 0; i-=2) {	//move backwards 2 steps from 101 to 0 
+    currDivider = i + prevDivider;	//add current step to the previous fraction 
+    prevDivider = 1 / currDivider;	//then divide 1 by current sum of i and previous fraction 
+  }
+  cout << prevDivider;			
+  return 0;
+}
+
+323.
+#include <iostream>
+#include <math.h>
+using namespace std;
+int main() {
+  float x;
+  cin >> x;
+  float prevDivider = pow(x,2);
+  float currDivider;
+  if (x != 0) {
+    for (int i = 256; i > 1; i /= 2) {		//move backwards twice as smaller from 256 to 1
+      currDivider = i / prevDivider;		//divide current i by previous fraction - current divider 
+      prevDivider = pow(x, 2) + currDivider;	//calculate the previous fraction by adding x^2 and current divider - previous divider 
+    }
+    float answer = x / prevDivider;		//at the end divide 1 by previous divider 
+    cout << answer;
+    return 0;
+  }
+  else 
+    return 0;
+}
+
+324.
+#include <iostream>
+#include <math.h>
+using namespace std;
+int main() {
+  float x;
+  cin >> x;
+  float sum = 0.0;
+  for (int i = 1; i <= 50; i++) {	//move from 1 to 50
+    sum += (1 / pow(i, 3));		//while adding 1/current step to the power of 3
+  }
+  cout << sum;
+  return 0;
+}
+
+325.
+#include <iostream>
+#include <math.h>
+using namespace std;
+int main() {
+  float sum = 0.0;
+  for (int i = 1; i <= 10; i++) {	//while moving from 1 to 10 
+    float x;	
+    cin >> x;				//read the value of x from a user 
+    sum += pow(x, i);			//add the x to the power of current step to the total sum
+  }
+  cout << sum;
+  return 0;
+}

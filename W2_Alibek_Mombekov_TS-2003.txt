@@ -1,0 +1,110 @@
+P201.
+#include <iostream>
+using namespace std;
+int main() {
+  int x;
+  cin >> x; //input 
+  cout << x; //output
+  return 0;
+}
+
+P202.
+#include <iostream>
+using namespace std;
+int main() {
+  int x,y;
+  cin >> x >> y; //input of two values 
+  cout << x + y; //output their sum
+        return 0;
+}
+
+P203.
+#include <iostream>
+using namespace std;
+int main() {
+  int x,y;
+  cin >> x >> y; //input of two values
+  cout << x * y; //output their product
+  return 0;
+}
+
+P204.
+#include <iostream>
+using namespace std;
+int main() {
+  int x,y,z;
+  cin >> x >> y >> z; //input of 3 values
+  cout << (x * x) + y - (z / 2); //outputing value of expression x² + y - z:2
+  return 0;
+}
+
+P205.
+#include <iostream>
+using namespace std;
+int main() {
+  int x,y;
+  cin >> x >> y;
+  if (x%y == 0) //if x is multiple of y
+    cout << "yes"; //print yes 
+  else
+    cout << "no"; //else print no
+  return 0;
+}
+
+P206.
+#include <iostream>
+using namespace std;
+int main() {
+  int x,y;
+  cin >> x >> y;
+  if (x > y) //if x greater than y 
+    cout << ">"; //print >
+  else if (x < y) //else if y greater than x
+    cout << "<"; //print <
+  else 		//if none of the above satisfy the conditions 
+    cout << "="; //print =
+  return 0;
+}
+
+P207.
+#include <iostream>
+using namespace std;
+int main() {
+  float x,y;
+  cin >> x >> y;
+  float aver = (x + y) / 2; //finding average of two values 
+  cout << aver; //printing the average
+  return 0;
+}
+
+P208.
+#include <iostream>
+using namespace std;
+int main() {
+  int x,y;
+  cin >> x >> y;
+  cout << x%y; //printing the remainder of x from division by y
+  return 0;
+}
+
+P209.
+#include <iostream>
+using namespace std;
+int main() {
+  float k,c;
+  cin >> k >> c; //input of k and c in y = kx + c
+  cout << "x = 0.1 : " << "y = " << k * 0.1 + c << endl;  //printing y value if x = 0.1
+  cout << "x = 1 : " << "y = " << k + c << endl;	  //printing y value if x = 1
+  cout << "x = 5 : " << "y = " << k * 5 + c << endl;   	  //printing y value if x = 5
+  return 0;
+}
+
+P210.
+#include <iostream>
+using namespace std;
+int main() {
+  float x,y;
+  cin >> x >> y; //input of x and y
+  cout << ((x - 2 * y)*x)/(-2*y);  //printing value of mathematical expression
+  return 0;
+}
