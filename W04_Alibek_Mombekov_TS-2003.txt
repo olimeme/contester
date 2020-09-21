@@ -195,3 +195,86 @@ int main()
   
   return 0;
 }
+
+409.
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int numbers[100][3];
+	int size;
+	cin >> size;
+	for (int i = 0; i < size; i++) {
+		for (int j = 0; j < 3; j++) 
+		cin >> numbers[i][j];
+	}
+	int tempH,tempM,tempS;
+	for (int i = 0; i < size - 1; i++) {
+		for (int j = i + 1; j < size; j++) {
+			int totalTimePrev = numbers[i][0] * 3600 + numbers[i][1] * 60 + numbers[i][2];
+			int totalTimeCurr = numbers[j][0] * 3600 + numbers[j][1] * 60 + numbers[j][2];
+			if (totalTimePrev > totalTimeCurr)
+			{
+				tempH = numbers[i][0];
+				tempM = numbers[i][1];
+				tempS = numbers[i][2];
+				numbers[i][0] = numbers[j][0];
+				numbers[i][1] = numbers[j][1];
+				numbers[i][2] = numbers[j][2];
+				numbers[j][0] = tempH;
+				numbers[j][1] = tempM;
+				numbers[j][2] = tempS;
+			}
+		}
+	}
+	for (int i = 0; i < size; i++)
+			cout << numbers[i][0] << " " << numbers[i][1]<< " "<<numbers[i][2]<<endl;
+
+	return 0;
+}
+
+410.
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int k;
+	cin >> k;
+	bool isPrime = true;
+	for (int i = 2; i < k; i++) {
+		if (k%i == 0) {
+			isPrime = false;
+			break;
+		}
+	}
+	isPrime ? cout << "YES" : cout << "NO";
+	return 0;
+}
+
+411.
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int n;
+	cin >> n;
+	bool isPrime;
+	for (int i = 2; i <= n; i++)
+	{
+		isPrime = true;
+		for (int j = 2; j <= i / 2; j++)
+		{
+			if (i%j == 0)
+			{
+				isPrime = false;
+				break;
+			}
+		}
+		if (isPrime)
+			cout << i << " ";
+	}
+	return 0;
+}
