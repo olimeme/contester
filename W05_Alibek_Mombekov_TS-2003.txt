@@ -1,0 +1,420 @@
+501.
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+  int n, m;
+  cin >> n >> m;
+  int arr[100][100];
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      cin >> arr[i][j];
+    }
+  }
+  int min = arr[0][0];		//equate first element to the smallest 
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      if (min > arr[i][j])	//if smallest element is greater than the current element 
+        min = arr[i][j];	//make current element the smallest 
+    }
+  }
+  cout << min;
+  return 0;
+}
+
+502.
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+  int n;
+  int a;
+  cin >> n;
+  int arr[100][100];
+  int sum1 = 0;
+  int sum2 = 0;
+  for (int j = 0; j < n; j++) {
+    for (int k = 0; k < n; k++) {
+      cin >> a;
+      if (j == k) 		//if column equals to row 
+        sum1 += a;		//add it to first diagonal sum
+      if (j + k == (n - 1))	//if sum of column and row equals to length of array 
+        sum2 += a;		//add it to the second diagonal sum 
+    }
+  }
+  cout << sum1 << " " << sum2;
+  return 0;
+}
+
+503.
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+  int arr[100][100];
+  int n, m;
+  cin >> n >> m;
+  int zeroposR;			//row of zero 
+  int zeroposC;			//column of zero
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      cin >> arr[i][j];
+      if (arr[i][j] == 0) {	//if current element is equal to 0 
+        zeroposC = i+1;		//save its row and column position 
+        zeroposR = j+1;
+      }
+    }
+  }
+  cout << zeroposC << " " << zeroposR;
+  return 0;
+}
+
+504.
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+  int arr[100][100];
+  int n, m;
+  cin >> n >> m;
+  int zeroposR = -1;		//row of -1(equate to -1 if no -1 elements found)
+  int zeroposC = -1;		//column of -1
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      cin >> arr[i][j];
+      if (arr[i][j] == -1) {	//if current element equals to -1 
+        zeroposC = i+1;		//save its row and column position 
+        zeroposR = j+1;
+      }
+    }
+  }
+  cout << zeroposC << " " << zeroposR;
+  return 0;
+}
+
+505.
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+  int arr1[100][100];
+  int arr2[100][100];
+  int n;
+  cin >> n;
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      cin >> arr1[i][j];		//enter first arrays elements
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      cin >> arr2[i][j];		//enter second arrays elements
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      cout << arr1[i][j] + arr2[i][j] << " "; //print their sum 
+    }
+    cout << endl;
+  }
+
+  return 0;
+}
+
+506.
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+  int arr1[100][100];
+  int n;
+  cin >> n;
+  bool symetric = true;
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      cin >> arr1[i][j];
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    if (symetric) {		\\if symetric variable is still true
+      for (int j = 0; j < n; j++) {
+        if (arr1[i][j] != arr1[j][i]) {		//if element from one side of the diagonal is NOT equal to element on the other side
+          symetric = false;			//break the loop
+          break;
+        }
+      }
+    }						//if array is not symetric, exit the loop
+    else break;
+  }
+  symetric ? cout << "YES" : cout << "NO";	//if array is symetric print YES, else print NO
+  return 0;
+}
+
+507.
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+  int arr1[100][100];
+  int n, sum = 0;
+  cin >> n;
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      cin >> arr1[i][j];
+    }
+  }
+  for (int i = 0; i < n; i++) {		//stay on the column 
+    for (int j = i + 1; j < n; j++) {	//and move from the row that starts from column + 1 position
+      sum += arr1[j][i];
+    }
+  }
+  cout << sum;
+  return 0;
+}
+
+508.
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+  int arr1[100][100];
+  int n, sum = 0;
+  cin >> n;
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      cin >> arr1[i][j];
+    }
+  }
+  for (int i = 0; i < n; i++) {		//stay on the row
+    for (int j = i + 1; j < n; j++) {	//and move from the column that starts from row + 1 position
+      sum += arr1[i][j];
+    }
+  }
+  cout << sum;
+  return 0;
+}
+
+509.
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+  int arr1[100][100];
+  int n,m, sum = 0;
+  cin >> n >> m;
+  int max = -1000000;
+  int index = 0;
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      cin >> arr1[i][j];
+    }
+  }
+  for (int i = 0; i < m; i++) {
+    for (int j = 0; j < n; j++) {
+      sum += arr1[j][i];	//sum of i-th column 
+    }
+    if (sum > max) {		//if sum is greater than biggest sum 
+      max = sum;		//set max to the sum of a column 
+      index = i+1;		//save the index of column 
+    }
+    sum = 0;			//reset the sum of column 
+  }
+  cout << index;
+  return 0;
+}
+
+510.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+  int arr1[100][100];
+  int arr2[100];
+  int n,m;
+  int k = 0;		//count elements greater than 0 and is iterator of arr2
+  cin >> n >> m;
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      cin >> arr1[i][j];
+      if (arr1[i][j] > 0) {	//if element is greater than 0 
+        arr2[k] = arr1[i][j];	//add it to array of positive elements 
+        k++;
+      }
+    }
+  }
+  cout << k<<endl;
+  sort(arr2, arr2 + k);		//sort the arr2 using STL functions 
+  for (int i = 0; i < k; i++) {	
+    cout << arr2[i] << " ";
+  }
+  return 0;
+}
+
+511.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+  int arr[100][100];
+  int n;
+  cin >> n;
+  int num = 1;		//counter that fills the array
+  for (int i = n-1; i >= 0; i--) {
+    for (int j = n-1; j >= 0; j--) {
+      arr[j][i] = num;	//begin from last column and row and set it to the current num counter 
+      num++;	
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      cout << arr[i][j] << " ";
+    }
+    cout << endl;
+  }
+  return 0;
+}
+
+512.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+  int arr[100][100];
+  int n,m;
+  cin >> n >> m;
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      cin >> arr[i][j];
+    }
+  }
+  for (int i = m-1; i >= 0; i--) {	//print from the last column 
+    for (int j = 0; j < n; j++) {	//and from the first row 
+      cout << arr[j][i] << " ";
+    }
+    cout << endl;
+  }
+  return 0;
+}
+
+513.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+int main()
+{
+  string arr[5][2] = {			//array of strings
+    {"Tom","555-3322"},
+    {"Mary","555-8976"},
+    {"Jon","555-1037"},
+    {"Rachel","555-1400"},
+    {"Sherry","555-8873"},
+  };
+  string name;
+  cin >> name;
+  int indexOfNumber;		
+  bool found = false;			//boolean variable to determine if name is found in the array
+  for (int i = 0; i < 5; i++) {
+    if (arr[i][0] == name) {		//if name is found in the array
+      found = true;			//set found to true 
+      indexOfNumber = i;		//save the index of name and phone pair
+    }
+  }
+  found ? cout << arr[indexOfNumber][1] : cout << "Not found";		//if name is found, print the phone number, else print Not found
+  return 0;
+}
+
+514.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+int main()
+{
+	int arr[100][100];
+	int n;
+	cin >> n;
+	if (n == 0)	//if line number is 0 then print 0
+		cout << '0';
+	else {
+		for (int i = 0; i < n; i++) {		//line number 
+			for (int j = 0; j <= i; j++) {	//index on line (number of lines = number of elements on line)
+				if (j == 0 || j == i)	//first and last elements on a line are 1
+					arr[i][j] = 1;
+				else			//else calculate the sum of previous and current index on the previous line
+					arr[i][j] = arr[i - 1][j - 1] + arr[i - 1][j];
+
+				cout << arr[i][j] << " ";
+			}
+			cout << endl;
+		}
+	}
+	return 0;
+}
+
+
+516.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+int main()
+{
+  int arr[100][100];
+  int n, m;
+  cin >> n >> m;
+  int num = 0;
+  for (int i = 0; i < n; i++) {			//while entering numbers 
+    if (i % 2 == 0) {				//if row is even enter numbers from the left
+      for (int j = 0; j < m; j++) {
+        arr[i][j] = num;
+        num++;
+      }
+    }
+    else {					//else enter numbers from the right 
+      for (int j = m-1; j >= 0; j--) {
+        arr[i][j] = num;
+        num++;
+      }
+    }
+  }
+
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      cout << arr[i][j] << " ";			//print the array
+    }
+    cout << endl;
+  }
+  return 0;
+}
