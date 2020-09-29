@@ -382,6 +382,43 @@ int main()
 	return 0;
 }
 
+515.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+int main()
+{
+	int n, t;
+	int arr[100];
+	cin >> n >> t;
+	for (int i = 0; i < n; i++)
+		arr[i] = i + 1;
+	int peopleLeft = n;	
+	int circularIndexCounter = 0;
+	int killCounter = 0;
+	while (peopleLeft != 1)		//while there are still people left
+	{
+		circularIndexCounter %= n;		//if index is greater than number of people, come back to the begining
+		if (arr[circularIndexCounter] != 0)	//if person is not dead 
+			killCounter++;			//add 1 to kill counter
+
+		if (killCounter == t)			//if kill counter is equal to steps 
+		{
+			killCounter = 0;		//kill the person and set kill counter to 0
+			arr[circularIndexCounter] = 0;	
+			peopleLeft--;			//also subtract 1 from amount of people left
+		}
+		circularIndexCounter++;			//move to the next person
+	}
+	for (int i = 0; i < n; i++)
+		if (arr[i] != 0) cout << arr[i] << endl;//if person is not dead, print his position
+	return 0;
+}
+
+
 
 516.
 #include <iostream>
@@ -417,4 +454,121 @@ int main()
     cout << endl;
   }
   return 0;
+}
+
+517.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+int main()
+{
+	int arr[10][10];
+	for (int i = 0; i < 10; i++)
+		for (int j = 0; j < 10; j++) 
+			cin >> arr[i][j];
+	int shipSize = 0; //calculates the ship size
+	int maxShipSize = 0; //calculates the biggest ship size
+
+	//check the longest ship on columns 
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 10; j++) {
+			if (arr[j][i] == 0)				//if element is 0 
+				shipSize++;					//add 1 to ship size
+			else {							//else 
+				if (shipSize > maxShipSize)	//check if ship size is bigger than the biggest ship 
+					maxShipSize = shipSize;
+				shipSize = 0;				//reset the ship size counter 
+			}
+		}
+		if (shipSize > maxShipSize)			//when moving to the next column check if ship size is bigger than the biggest ship 
+			maxShipSize = shipSize;
+		shipSize = 0;						//and reset the ship size counter 
+	}
+
+	//check the longest ship on rows
+	for (int i = 0; i < 10; i++) {			//simillar logic to the columns 
+		for (int j = 0; j < 10; j++) {
+			if (arr[i][j] == 0)
+				shipSize++;
+			else {
+				if (shipSize > maxShipSize)
+					maxShipSize = shipSize;
+				shipSize = 0;
+			}
+		}
+		if (shipSize > maxShipSize)
+			maxShipSize = shipSize;
+		shipSize = 0;
+	}
+	cout << maxShipSize;
+	return 0;
+}
+
+518.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+int main()
+{
+	int n, t;
+	int arr[100][100];
+	int howManyNeighbours = 0;
+	cin >> n >> t;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cin >> arr[i][j];
+		}
+	}
+	int newArr[100][100] = {};		//temporary array to create a new generation 
+	for (int sec = 0; sec < t; sec++) {	//seconds passed 
+		for (int x = 0; x < n; x++) {
+			for (int y = 0; y < n; y++) {
+				if (arr[x - 1][y] == 1 && x != 0)		//check every neighbour
+					howManyNeighbours++;
+				if (arr[x - 1][y - 1] == 1 && x != 0 && y != 0)
+					howManyNeighbours++;
+				if (arr[x - 1][y + 1] == 1 && x != 0 && y != n-1)
+					howManyNeighbours++;
+				if (arr[x][y - 1] == 1 && y != 0)
+					howManyNeighbours++;
+				if (arr[x][y + 1] == 1 && y != n-1)
+					howManyNeighbours++;
+				if (arr[x + 1][y - 1] == 1 && y != 0 && x != n-1)
+					howManyNeighbours++;
+				if (arr[x + 1][y] == 1 && x != n-1)
+					howManyNeighbours++;
+				if (arr[x + 1][y + 1] == 1 && y != n-1 && x != n-1)
+					howManyNeighbours++;
+
+				if (howManyNeighbours < 2 || howManyNeighbours > 3)	//if neighbours are less than 2 or greater than 3 
+					newArr[x][y] = 0;				//then kill the cell 
+				else if (howManyNeighbours == 3)			//else if there are 3 neighbours 
+					newArr[x][y] = 1;				//create a new one
+				else
+					newArr[x][y] = arr[x][y];			//else rewrite the cell to a temporary cell 
+
+				howManyNeighbours = 0;					//reset the neighbours count
+			}
+		}
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				arr[i][j] = newArr[i][j];				//rewrite old to new generation 
+			}
+		}
+	}
+
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cout << arr[i][j]<< " ";					//print
+		}
+		cout << endl;
+	}
+
+	
+	return 0;
 }
