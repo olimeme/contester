@@ -1,0 +1,463 @@
+601.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+int min(int a, int b, int c, int d) {
+  int min = a;
+  if (b < min)				//if any of the values smaller than the previous ones 
+    min = b;				//make it smallest 
+  if (c < min)
+    min = c;
+  if (d < min)
+    min = d;
+  return min;
+}
+
+int main()
+{
+  int a, b, c, d;
+  cin >> a >> b >> c >> d;
+  cout << min(a, b, c, d);
+  return 0;
+}
+
+602.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+double power(double a,int n) {		
+  return pow(a,n);			//return a to the power n
+}
+
+int main()
+{
+  double a;
+  int n;
+  cin >> a >> n;
+  cout << power(a, n);
+  return 0;
+}
+
+603.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+bool myXor(bool x, bool y) {
+  return x ^ y;				//return exclusive OR of x and y
+}
+
+int main()
+{
+  bool a, n;
+  cin >> a >> n;
+  cout << myXor(a, n);
+  return 0;
+}
+
+604.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+bool election(bool x, bool y, bool z) {
+  int counter = 0;			
+  if (x == 0) counter++;		//if value is false add 1 to counter
+  if (y == 0) counter++;
+  if (z == 0) counter++;
+  if (counter > 1)			//if there are more than 1 false values
+    return 0;				//return false (0)
+  return 1;				//else return true (1)
+}
+
+int main()
+{
+  bool a, b, c;
+  cin >> a >> b >> c;
+  cout << election(a, b, c);
+  return 0;
+}
+
+605.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+char getSign(int x, int y) {		
+  if (x > y)				//if x greater than y
+    return '>';				//return >
+  else if (x < y)			//else if y greater than x
+    return '<';				// return <
+  else
+    return '=';				//else return =
+}
+
+int main()
+{
+  int a, b;
+  cin >> a >> b;
+  cout << getSign(a, b);
+  return 0;
+}
+
+606.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+void greatArr(int a[], int b[],int n) {
+  int pos1 = 0;
+  int pos2 = 0;
+  for (int i = 0; i < n; i++)	//if element in array 1 is positive, add 1 to counter1
+    if (a[i] > 0)
+      pos1++;
+  for (int i = 0; i < n; i++) 	//if element in array 2 is positive, add 1 to counter2
+    if (b[i] > 0)
+      pos2++;
+
+  if (pos1 > pos2)		//if counter1 is greater than the second one print message
+    cout << "Number of positives in the first array is greater";
+  else if (pos2 > pos1)		//else if counter2 is greater than the first one print message
+    cout << "Number of positives in the second array is greater";
+  else				//else numbers are equal 
+    cout << "Numbers are equal";
+}
+
+int main()
+{
+  int n;
+  int arr1[100];
+  int arr2[100];
+  cin >> n;
+  for (int i = 0; i < n; i++) 
+    cin >> arr1[i];
+  for (int i = 0; i < n; i++)
+    cin >> arr2[i];
+  greatArr(arr1, arr2, n);
+  return 0;
+}
+
+607.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+void PosRow(int a[][100], int n, int m) {
+	int countRow[100] = {};
+	if (n == 0 || m == 0) {			//if number of rows or columns equals to 0 print 1
+		cout << '1';
+		return;
+	}
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			if (a[i][j] > 0)		//if element is positive 
+				countRow[i]++;		//increment the counter on the index of a current row
+		}
+	}
+	bool allEqual = true;				//checks if all elements in countRow are equal 
+	for (int i = 0; i < n - 1; i++) {
+		if (countRow[i] != countRow[i + 1]) {	//if current element doesn't equal the next one
+			allEqual = false;		//set allEqual to false and exit the loop
+			break;
+		}
+	}
+	if (allEqual)			//if all rows have equal number of positive integers, print message
+		cout << "Numbers are equal";
+	else				//else print row with greatest number of positive integers
+	{
+		int max = distance(countRow, max_element(countRow, countRow + n));	//function to find the index of the max element
+		cout << max + 1;
+	}
+
+}
+
+int main()
+{
+	int n, m;
+	int arr1[100][100];
+	cin >> n >> m;
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			cin >> arr1[i][j];
+
+	PosRow(arr1, n, m);
+	return 0;
+}
+
+608.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+void PosRow(int arr[][100], int n, int m) {
+  int max = 0;
+  int counter = 0;
+  int line = 0;
+  int maxRow = 0;
+  for (int i = 0; i < n; i++) {
+    for (int j = 1; j < m; j++) {
+      if (arr[i][j] == arr[i][j - 1])	//if previous element equals to the current one
+        counter++;			//add 1 to counter 
+      else if (max < counter) {		//else check if counter is greater than max
+        max = counter;			//make the sequence the biggest one in the row
+        counter = 1;			//reset the counter
+      }
+    }
+    if (max < counter) {		//when moving to the next row check again 
+      max = counter;			//if so, then do all the previous steps
+      counter = 1;
+    }
+    if (max > maxRow) {			//check if row of sequence is greater than the biggest row
+      maxRow = max;			//set biggest row to the current one
+      line = i;				//save index of a row
+    }
+  }
+  if (maxRow != 0)			//if the biggest row is not equal to 0
+    cout << "Longest series is in the string " << line << '\n';
+  else					
+    cout << "No series of equal elements";
+}
+
+int main()
+{
+  int n, m;
+  int arr[100][100];
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+      cin >> arr[i][j];
+        }
+    }
+  PosRow(arr,n,m);
+  return 0;
+}
+
+609.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+const int MAX_N = 200;
+
+int countOccurance(string arr, char ch) {		
+  int result = 0;
+  for (int i = 0; i < arr.length(); i++) {	//check if character equals to the letter in the string
+    if (arr[i] == ch)
+      result++;
+  }
+  return result;				//return number of occurance
+}
+
+int main()
+{
+  char arr[2];
+  string str[2];
+  for (int i = 0; i < 2; i++) 
+    cin >> arr[i];
+  for (int i = 0; i < 2; i++) 
+    cin >> str[i];
+  cout << endl;
+  for (int i = 0; i < 2; i++) 
+    cout << countOccurance(str[i], arr[i]) << " " << arr[i] << " characters in " << str[i] << endl;
+  return 0;
+}
+
+610.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+const int MAX_N = 200;
+
+int countOccurance(char arr[MAX_N], char ch) {
+  int result = 0;
+  int arrLength = strlen(arr);
+  for (int i = 0; i < arrLength; i++)  //check if character equals to the letter in the string
+    if (arr[i] == ch)
+      result++;
+  return result;			//return number of occurance
+}
+
+int main()
+{
+  int n;
+  cin >> n;
+  char arr[100];
+  char str[100][MAX_N];
+  for (int i = 0; i < n; i++) {		
+    cin >> arr[i];
+    cin >> str[i];
+    cout << countOccurance(str[i], arr[i]) << " " << arr[i] << " in " << str[i] << endl;
+  }
+  return 0;
+}
+
+611.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+const int MAX_N = 200;
+
+int countOccurance(char arr[MAX_N], char ch) {
+  int result = 0;
+  int arrLength = strlen(arr);
+  for (int i = 0; i < arrLength; i++) 
+    if (arr[i] == ch)
+      result++;
+  return result;
+}
+
+int main()
+{
+  int n;
+  cin >> n;
+  char arr[100];
+  char str[100][MAX_N];
+  for (int i = 0; i < n; i++) {
+    cin >> arr[i];
+    cin >> str[i];
+  }
+  for (int i = n-1; i >= 0; i--)		//print occurance in reverse order
+    cout << countOccurance(str[i], arr[i]) << " " << arr[i] << " in " << str[i] << endl;
+  return 0;
+}
+
+612.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+const int MAX_N = 200;
+
+char toUpper(char c) {			
+  if (int(c) >= 97 && int(c) <= 122)		//if character is upper case (checked by ASCII)
+    return char(int(c) - 32);			//return lower case (subtract 32 from ASCII decimal code)
+  else
+    return c;					//else just print the character 
+}
+
+int main()
+{
+  char arr[100];
+  cin >> arr;
+  int length = strlen(arr);
+  for (int i = 0; i < length; i++)
+    cout << toUpper(arr[i]);
+  return 0;
+}
+
+613.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+const int MAX_N = 200;
+
+char toChange(char c) {
+  if (int(c) >= 97 && int(c) <= 122)		//if character is upper case (checked by ASCII)
+    return char(int(c) - 32);			//return lower case (subtract 32 from ASCII decimal code)
+  else if(int(c) >= 65 && int(c) <= 90)		//if character is lower case (checked by ASCII)
+    return char(int(c) + 32);			//return upper case (add 32 from ASCII decimal code)
+  else return c;				//else return the character
+}
+
+int main()
+{
+  char arr[100];
+  cin >> arr;
+  int length = strlen(arr);
+  for (int i = 0; i < length; i++)
+    cout << toChange(arr[i]);
+  return 0;
+}
+
+614.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+const int MAX_N = 200;
+
+void toChange(char c[MAX_N]) {
+  int length = strlen(c);
+  for (int i = 0; i < length; i++) {
+    if (int(c[i]) >= 97 && int(c[i]) <= 122)	//if letter is upper case (checked by ASCII)
+      cout << char(int(c[i]) - 32);		//print it in lower case 
+    else if (int(c[i]) >= 65 && int(c[i]) <= 90)	//if letter is lower case (checked by ASCII)
+      cout << char(int(c[i]) + 32);			//print it in upper case
+    else
+      cout << "";					//else don't print it
+  }
+}
+
+int main()
+{
+  char arr[100];
+  cin >> arr;
+  toChange(arr);
+  return 0;
+}
+
+615.
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+const int MAX_N = 200;
+
+int toSeconds(int hours,int min,int sec) {		//converts time to seconds 
+  return hours * 3600 + min * 60 + sec;
+}
+
+void printTime(int timeInSec) {
+  int hours = timeInSec / 3600;
+  int min = (timeInSec % 3600) / 60;
+  int sec = (timeInSec % 3600) % 60;
+  //print the time with zeroes
+  cout << setfill('0') << setw(2) << hours << ":" << setw(2) << min << ":" << setw(2) << sec;
+}
+
+int main()
+{
+  int arr1[3];
+  int arr2[3];
+  for (int i = 0; i < 3; i++) {
+    cin >> arr1[i];
+  }
+  for (int i = 0; i < 3; i++) {
+    cin >> arr2[i];
+  }
+  int first = toSeconds(arr1[0], arr1[1], arr1[2]);
+  int second = toSeconds(arr2[0], arr2[1], arr2[2]);
+  printTime(second - first);
+  return 0;
+}
+
+616.

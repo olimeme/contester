@@ -572,3 +572,52 @@ int main()
 	
 	return 0;
 }
+
+519.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+int main()
+{
+	int n;
+	cin >> n;
+	int arr[100][100] = {};
+	int top = 0;			//top left corner which moves from top to bottom
+	int bottom = n - 1;		//bottom left corner which moves from bottom to top
+	int left = 0;			//left top corner which moves from left to right
+	int right = n - 1;		//right bottom corner which moves from right to left
+	while (top <= n/2-1) {	//spiral around until we get to the middle 
+		for (int i = left; i <= right; i++) {	//fill from left to right
+			arr[top][i] = 1;
+		}
+		top++;									//move to next row because we finished the current one
+		for (int i = top; i <= bottom; i++) {	//fill from top to bottom
+			arr[i][right] = 1;
+		}
+		right--;								//move left because we finished the right side
+		for (int i = right; i >= left; i--) {	//fill from right to left 
+			arr[bottom][i] = 1;
+		}
+		bottom--;								//move up because we finished the bottom side
+		for (int i = bottom; i > top; i--) {	//move from bottom to top but one row less
+			arr[i][left] = 1;
+		}
+		left++;									//left side moves right
+		bottom--;								//bottom side moves up 
+		top++;									//top side moves down 
+		right--;								//right side moves left 
+		if(top-1!=bottom)						//this one used to print 1 inbetween the outer circle and inner circle
+			arr[top][left] = 1;
+		left++;									//move to the inner circle
+	}
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cout << arr[i][j] << " ";
+		}
+		cout << endl;
+	}
+	return 0;
+}
