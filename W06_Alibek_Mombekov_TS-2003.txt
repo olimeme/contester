@@ -461,3 +461,110 @@ int main()
 }
 
 616.
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+
+int binaryConvert(char num[], int size)
+{
+  int power = 0;
+  int sum = 0;
+  for (int i = size-1; i >= 0; i--) {
+    if (num[i] == '1')				//if character is 1 then add 2 to the power of the current index
+      sum += pow(2, power);
+    power++;					//increment power every bit
+  }
+  return sum;
+}
+
+int main()
+{
+  int n;
+  char num[100];
+  cin >> n;
+  for(int i=0;i<n;i++)
+    cin >> num[i];
+  cout << binaryConvert(num, n);
+}
+
+617.
+#include <iostream>  
+#include <string>  
+#include <cmath>  
+using namespace std;
+void neighbourSoldier(int arr[], int size)
+{
+  int ans = 100000;			//make the biggest number possible 
+  int first, second;
+  for (int i = 1; i < size; i++)
+  {
+    if (ans > abs(arr[i] - arr[i - 1]))	//if difference between two soldiers is smaller than the smallest difference
+    {
+      ans = abs(arr[i] - arr[i - 1]);	//set the smallest difference to them
+      first = i - 1;			//save positions of 2 soldiers 
+      second = i;
+    }
+  }
+  if (ans > abs(arr[size - 1] - arr[0]))	//condition to check if two soldiers are located on both ends of the array
+  {
+    first = size - 1;
+    second = 0;
+  }
+  cout << first+1 << " " << second+1;
+}
+int main()
+{
+  int n, a[102];
+  cin >> n;
+  for (int i = 0; i < n; i++)
+    cin >> a[i];
+  neighbourSoldier(a, n);
+  return 0;
+}
+
+618.
+#include <iostream>  
+#include <string>  
+#include <cmath>  
+using namespace std;
+void checkCorrectness(char exp[],int size)
+{
+  if (int(exp[0]) >= 48 && 			//check if first and last characters are numbers
+    int(exp[0]) <= 57 && 
+    int(exp[size-1]) >= 48 && 
+    int(exp[size-1] < 57))
+  {
+    for (int i = 1; i < size-1; i++)
+    {
+      if (exp[i] == '+' || exp[i] == '-' || exp[i] == '*' || exp[i] == '/') //if any opperation is mentioned
+      {
+        if (int(exp[i + 1]) < 48 || int(exp[i + 1]) > 57)	//check if next character is not a number 
+        {
+          cout << "NO";
+          return;
+        }
+      }
+      else if (int(exp[i]) < 48 || int(exp[i]) > 57) //if any other character is met
+      {
+        cout << "NO";					//print no
+        return;
+      }
+    }
+    cout << "YES"; //if all of the conditions are satisfied the print yes
+  }
+  else
+    cout << "NO";
+}
+int main()
+{
+  int n;
+  char a[102];
+  cin >> n;
+  for (int i = 0; i < n; i++)
+    cin >> a[i];
+  checkCorrectness(a, n);
+  return 0;
+}
