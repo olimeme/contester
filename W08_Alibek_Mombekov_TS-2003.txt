@@ -1,0 +1,419 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+void swap2(unsigned int &a, unsigned int &b) {	//get address of values
+  int temp = a;
+  a = b;
+  b = temp;			//swap them
+}
+
+int main() {
+  unsigned int a, b;
+  cin >> a >> b;
+  swap2(a, b);
+  cout << a << " " << b;
+  return 0;
+}
+
+802.
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+int* arr(int arr[], int size)
+{
+  for (int i = 0; i < size; i++)
+    cin >> *(arr + i);		//input the value using pointer
+  return arr;
+}
+int main() {
+  int size;
+  int a[100];
+  cin >> size;
+  arr(a,size);
+  for (int i = 0; i < size; i++)
+    cout << *(a + i) << " ";
+  return 0;
+}
+
+803.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+const int MAX_N = 200;
+
+int countOccurance(char arr[MAX_N], char ch) {
+  int result = 0;
+  int arrLength = strlen(arr);
+  for (int i = 0; i < arrLength; i++)
+    if (arr[i] == ch)			//if element equals to the character 
+      result++;				//increment count
+  return result;			
+}
+
+int main()
+{
+  int n;
+  cin >> n;
+  char arr[100];
+  char str[100][MAX_N];
+  for (int i = 0; i < n; i++) {
+    cin >> *(arr+i);		//input the value using pointer
+    cin >> *(str+i);
+    cout << countOccurance(str[i], arr[i]) << " " << arr[i] << " in " << str[i] << endl;
+  }
+  return 0;
+}
+
+804.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+#include <cctype>
+using namespace std;
+
+char* toChange(char* c) {
+  int length = strlen(c);
+  int j = 0;
+  char* str = new char[length+1];		//set new char array with the length of parameter string
+  for (int i = 0; i <= length; i++) {
+    if (isalpha(c[i])) {			//if element is character(not symbols or numbers)
+      str[j] = c[i];				//set i-th element of new char array to this character
+      j++;
+    }
+  }
+  str[j] = *"\0";				//add terminating sign at the end
+  return str;
+}
+
+int main()
+{
+  char arr[100];
+  cin >> arr;
+  char* str = toChange(arr);
+  int length = strlen(str);
+  for (int i = 0; i < length; i++)
+    cout << str[i];
+  return 0;
+}
+
+806.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+#include <cctype>
+using namespace std;
+
+int* converter(int arr[],int size)
+{
+  int* newArr = new int[size];		//create new int array(pointer)
+  int j = 0;
+  for (int i = 0; i < size; i++)	
+  {
+    if (i % 2 == 0)			//save even numbers first
+    {
+      newArr[j] = arr[i];
+      j++;
+    }
+  }
+  for (int i = 0; i < size; i++)
+  {
+    if (i % 2 == 1)			//then odd numbers
+    {
+      newArr[j] = arr[i];
+      j++;
+    }
+  }
+  return newArr;		//return array pointer
+}
+int main()
+{
+  int size;
+  int arr[100];
+  cin >> size;
+  for (int i = 0; i < size; i++)
+    cin >> arr[i];
+  int* newArr = converter(arr,size);
+  for (int i = 0; i < size; i++)
+    cout << newArr[i] << " ";
+  return 0;
+}
+
+807.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+#include <cctype>
+using namespace std;
+
+int sumArr(int arr[],int size,int &counter)	//get address of counter 
+{
+  int nullCounter = 0;
+  for (int i = 0; i < size; i++)
+  {
+    if (arr[i] == 0)		//when first 0 met, start adding the values to the counter until next 0 is met
+      nullCounter++;
+    if (nullCounter == 1)
+      counter += arr[i];
+  }
+  return counter;
+}
+int main()
+{
+  int size;
+  int arr[100];
+  int counter = 0;
+  cin >> size;
+  for (int i = 0; i < size; i++)
+    cin >> arr[i];
+  sumArr(arr,size,counter);
+  cout << counter;
+  return 0;
+}
+
+808.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+#include <cctype>
+using namespace std;
+
+int findMax(int arr[], int size)		//finds last max element int array
+{
+  int max = *max_element(arr, arr + size);
+  int index = max;
+  for (int i = 0; i < size; i++)
+    if (max == arr[i])
+      index = i;
+  return index;
+}
+
+int sumArr(int arr[],int size,int &counter)	//gets address of counter 
+{
+  int maxIndex = findMax(arr, size);
+  for (int i = 0; i < size; i++)
+  {
+    if (i == maxIndex) 				//while not reaching the index of max element, add all positive elements to counter
+      break;
+    if (arr[i] > 0)
+      counter+=arr[i];
+  }
+  return counter;
+}
+int main()
+{
+  int size;
+  int arr[100];
+  int counter = 0;
+  cin >> size;
+  for (int i = 0; i < size; i++)
+    cin >> arr[i];
+  sumArr(arr, size, counter);
+  cout << counter;
+  return 0;
+}
+
+809.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+#include <cctype>
+using namespace std;
+
+int findMax(int arr[], int size,int &num)		//finds last max element in array
+{
+  int max = *max_element(arr, arr + size);
+  num = max;
+  for (int i = 0; i < size; i++)
+    if (max == arr[i])
+    {
+      num = i;
+      return num;
+    }
+}
+
+int findMin(int arr[], int size, int &num)		//finds last min element in array
+{
+  int min = *min_element(arr, arr + size);
+  num = min;
+  for (int i = 0; i < size; i++)
+    if (min == arr[i]) 
+    {
+      num = i;
+      return num;
+    }
+}
+
+int evenNumbers(int nums[], int indexmax, int indexmin,int &counter)
+{
+  if (indexmin > indexmax)		//swap min and max if index of min is greater than index of max
+    swap(indexmin, indexmax);
+  for (int i = indexmin+1; i < indexmax; i++)	//find all even numbers between min and max
+    if (*(nums + i) % 2 == 0)		
+      counter++;
+  return counter;	
+}
+int main()
+{
+  int size,min,max,counter = 0;
+  int arr[100];
+  cin >> size;
+  for (int i = 0; i < size; i++)
+    cin >> *(arr+i);
+  findMin(arr, size,min);
+  findMax(arr, size,max);
+  evenNumbers(arr, max, min, counter);
+  cout << counter;
+  return 0;
+}
+
+810.
+bool compare(char * s1, int size1, char * s2, int size2)
+{
+  if (size1 == size2)				//check if sizes of both arrays are equal
+  {
+    for (int i = 0; i < size1; i++)		//if at least one character doesn't match, break the loop
+    {
+      if (s1[i] != s2[i])
+        return false;
+    }
+    return true;
+  }
+  else
+    return false;
+}
+
+int main()
+{
+  char str1[100] = {};
+  char str2[100] = {};
+  cin >> str1;
+  cin >> str2;
+  int size1 = strlen(str1);
+  int size2 = strlen(str2);
+  compare(str1, size1, str2, size2) ? cout << "YES" : cout << "NO";
+  return 0;
+}
+
+811.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+#include <cctype>
+using namespace std;
+
+bool palindrome(char * s, int size)
+{
+  int i1 = 0;
+  int i2 = size-1;
+  while (i2 > i1) {		//beginning and end of string move towards each other 
+    if (s[i1] != s[i2]) {	//if at least one pair of characters don't equal to each other, return false
+      return false;
+    }
+    ++i1;
+    --i2;
+  }
+  return true;
+}
+int main()
+{
+  char str[100] = {};
+  cin >> str;
+  int size = strlen(str);
+  palindrome(str, size) ? cout << "YES" : cout << "NO";
+  return 0;
+}
+
+812.
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+#include <cctype>
+using namespace std;
+
+char* ceasarCrypt(char *s, int shift)
+{
+  int size = strlen(s);
+  for (int i = 0; i < size; i++)
+    s[i] = char(int(s[i] - shift + 65) % 26 + 65);	//set element equal to character - shift 
+  return s;
+}
+int main()
+{
+  char str[100] = {};
+  int shift;
+  cin >> str >> shift;
+  ceasarCrypt(str,shift);
+  int size = strlen(str);
+  for (int i = 0; i < size; i++)
+    cout << str[i];
+  return 0;
+}
+
+814.
+#include <iostream>
+#include <cstring>
+#include <string>
+using namespace std;
+string subString(int start, int end, string init)
+{
+	string newStr;
+	newStr.resize(end - start);
+	for (int i = start; i < end; i++)
+		newStr[i] = init[i];
+	return newStr;
+}
+
+int findIndexChar(char a, string init)
+{
+	int index = 0;
+	for (int i = 0; i < init.length(); i++)
+	{
+		if (init[i] == a)
+		{
+			index = i;
+			break;
+		}
+	}
+	return index;
+}
+
+int main() {
+	int x = 0;
+	int y = 0;
+
+	string str;
+	int pos[100];
+	int i = 0;
+	while (cin >>str)
+	{
+		cin >> pos[i];
+		//int spacePos = findIndexChar(' ', str);
+		//string direction = subString(0, spacePos,str);
+		//string number = subString(spacePos, str.length() - 1, str);
+		if (str == "North")
+			y += pos[i];
+		if (str == "South")
+			y -= pos[i];
+		if (str == "East")
+			x += pos[i];
+		if (str == "West")
+			x -= pos[i];
+		i++;
+	}
+		cout << x << " " << y << endl;
+}

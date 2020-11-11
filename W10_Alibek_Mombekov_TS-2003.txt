@@ -1,0 +1,660 @@
+1001.
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+using namespace std;
+struct Train
+{
+	int ID;
+	string Location;
+	string Time;
+};
+string toUpper(string str)
+{
+	for (int i = 0; i < str.length(); i++)
+		if (str[i] >= 'a' && str[i] <= 'z')
+			str[i] = char(str[i] - 32);
+	return str;
+}
+int main()
+{
+	int n;
+	cin >> n;
+	Train trains[100];
+	for (int i = 0; i < n; i++)
+	{
+		cin >> trains[i].ID;
+		cin >> trains[i].Location;
+		cin >> trains[i].Time;
+	}
+	string searchName;
+	if (n != 0)			//if entred number is 0, then dont ask for search string
+	{
+		cin >> searchName;
+	}
+	bool exists = false;
+	for (int i = 0; i < n; i++)
+	{
+		if (toUpper(trains[i].Location) == toUpper(searchName))
+		{
+			exists = true;
+			string locationUpper = toUpper(trains[i].Location);
+			cout << trains[i].ID << "_" << locationUpper << "_" << trains[i].Time;
+			break;
+		}
+	}
+	if (!exists)
+		cout << "Impossible";
+	return 0;
+}
+
+1002.
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+using namespace std;
+struct Train
+{
+  int ID;
+  string Location;
+  string Time;
+};
+string toUpper(string str)
+{
+  for (int i = 0; i < str.length(); i++)
+    if (str[i] >= 'a' && str[i] <= 'z')
+      str[i] = char(str[i] - 32);
+  return str;
+}
+
+int dateToSeconds(string date)    //turn date into seconds 
+{
+  int time[1000];
+  int index = 0;
+  for (int i = 0; i < date.length(); i++)
+  {
+    if (date[i] >= '0' && date[i] <= '9')
+    {
+      time[index] = int(date[i] - 48);
+      index++;
+    }
+  }
+  int sec = (time[0] * 10 + time[1]) * 3600 + (time[2] * 10 + time[3]) * 60;
+  return sec;
+}
+
+Train findDepTime(Train train[],int size)    
+{
+  int seconds[1000];
+  //turn all dates to array of seconds
+  for (int i = 0; i < size; i++)
+    seconds[i] = dateToSeconds(train[i].Time);
+  //find the min seconds in array
+  int minimum = 90000;
+  int index_min = 0;
+  for (int i = 0; i < size; i++)
+  {
+    if (seconds[i] < minimum) {
+      minimum = seconds[i];
+      index_min = i;
+    }
+  }
+  return train[index_min];
+}
+
+int main()
+{
+  int n;
+  cin >> n;
+  Train trains[1000];
+  for (int i = 0; i < n; i++)
+  {
+    cin >> trains[i].ID;
+    cin >> trains[i].Location;
+    cin >> trains[i].Time;
+  }
+  string searchName;
+  if (n != 0)      //if entred number is 0, then dont ask for search string
+  {
+    cin >> searchName;
+  }
+  Train searchedTrains[1000];
+  int index = 0;
+  bool exists = false;
+  for (int i = 0; i < n; i++)
+  {
+    if (toUpper(trains[i].Location) == toUpper(searchName))
+    {
+      searchedTrains[index] = trains[i];
+      index++;
+      exists = true;
+    }
+  }
+  if (!exists)
+    cout << "Impossible";
+  else
+  {
+    Train finalTrain = findDepTime(searchedTrains, index);
+    cout << finalTrain.ID << "_" << toUpper(finalTrain.Location) << "_" << finalTrain.Time;
+  }
+  return 0;
+}
+
+1003.
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+using namespace std;
+struct Student
+{
+  int ID;
+  string Surname;
+  double grade;
+};
+
+void findStudent(Student students[],int size)
+{
+  Student temp;
+  //sort students by grades
+  for (int i = 0; i < size; i++)
+  {
+    for (int j = i + 1; j < size; j++)
+    {
+      if (students[i].grade < students[j].grade)
+      {
+        temp = students[i];
+        students[i] = students[j];
+        students[j] = temp;
+      }
+    }
+  }
+  //print the students list
+  for (int i = 0; i < size; i++)
+  {
+    cout << students[i].ID << " " << students[i].Surname << " " << students[i].grade << endl;
+  }
+}
+
+int main()
+{
+  int n;
+  cin >> n;
+  Student students[1000];
+  for (int i = 0; i < n; i++)
+  {
+    cin >> students[i].ID;
+    cin >> students[i].Surname;
+    cin >> students[i].grade;
+  }
+  findStudent(students, n);
+  return 0;
+}
+
+1004.
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+using namespace std;
+struct Student
+{
+  int ID;
+  double grade;
+};
+
+bool compareTwoStudents(Student a, Student b)	//first compares by grade then by id
+{
+  if (a.grade != b.grade)
+    return a.grade > b.grade;
+
+  return a.ID < b.ID;
+}
+
+
+void findStudent(Student students[],int size)
+{
+  Student temp;
+  sort(students, students + size, compareTwoStudents);	//sorts the students list
+  for (int j = 0; j < size; j++)
+    cout << students[j].ID << " " << students[j].grade << endl;
+}
+
+int main()
+{
+  int n;
+  cin >> n;
+  Student students[1000];
+  for (int i = 0; i < n; i++)
+  {
+    cin >> students[i].ID;
+    cin >> students[i].grade;
+  }
+  findStudent(students, n);
+  return 0;
+}
+
+1005.
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+using namespace std;
+struct Luggage {
+
+  string description;
+  int count;
+  double weight;
+};
+
+struct Passenger {
+
+  int luggageSize;
+  string name;
+  Luggage *luggage;
+};
+
+void findMaxWeight(Passenger passengers[], int size)
+{
+  double sum = 0;
+  int sumIndex = 0;
+  int indexOfperson = 0;
+  int indexOfLuggage = 0;
+  int max = 0;
+  for (int i = 0; i < size; i++)	//finds passenger with max luggage weigth and saves their indexes
+  {
+    for (int j = 0; j < passengers[i].luggageSize; j++)
+    {
+      sum += passengers[i].luggage[j].count * passengers[i].luggage[j].weight;
+      if (sum > max)
+      {
+        max = sum;
+        indexOfperson = i;
+        indexOfLuggage = j;
+      }
+      sum = 0;
+    }
+  }
+  cout << passengers[indexOfperson].name << endl;
+  cout << passengers[indexOfperson].luggage[indexOfLuggage].description;
+}
+int main()
+{
+  int n;
+  cin >> n;
+  Passenger passengers[1000];
+  for (int i = 0; i < n; i++)
+  {
+    cin >> passengers[i].name;
+    cin >> passengers[i].luggageSize;
+    passengers[i].luggage = new Luggage[1000];
+    for (int j = 0; j < passengers[i].luggageSize; j++)
+    {
+      cin >> passengers[i].luggage[j].description;
+      cin >> passengers[i].luggage[j].count;
+      cin >> passengers[i].luggage[j].weight;
+    }
+  }
+  if(n!=0)
+    findMaxWeight(passengers, n);
+  return 0;
+}
+
+1006.
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+using namespace std;
+struct Train
+{
+  int ID;
+  string FromAddress;
+  string ToAddress;
+  string DepartureTime;
+};
+
+string toUpper(string str)
+{
+  for (int i = 0; i < str.length(); i++)
+    if (str[i] >= 'a' && str[i] <= 'z')
+      str[i] = char(str[i] - 32);
+  return str;
+}
+char toUpperChar(char c)
+{
+	if (c >= 'a' && c <= 'z')
+		c = char(c - 32);
+	return c;
+}
+bool compare(Train a, Train b)
+{
+  int maxA = a.ToAddress.length();
+  int maxB = b.ToAddress.length();
+  int max;
+  if (maxA > maxB)
+    max = maxA;
+  else
+    max = maxB;
+  for (int i = 0; i < max; i++)		//compare the letters till the very end of a word
+      if (toUpperChar(a.ToAddress[i]) != toUpperChar(b.ToAddress[i]))
+	 return toUpperChar(a.ToAddress[i]) < toUpperChar(b.ToAddress[i]);
+}
+void sortTrains(Train trains[], int size)
+{
+  for (int i = 0; i < size; i++)	//sorts trains
+  {
+    for (int j = i; j < size; j++)
+    {
+      if (compare(trains[i], trains[j]))
+      {
+        Train temp = trains[i];
+        trains[i] = trains[j];
+        trains[j]= temp;
+      }
+    }
+  }
+  for (int i = 0; i < size; i++)
+    cout << trains[i].ID << " " <<toUpper(trains[i].FromAddress) << " " << toUpper(trains[i].ToAddress) << " " << trains[i].DepartureTime << endl;
+}
+
+int main()
+{
+  Train trains[1000];
+  int n;
+  cin >> n;
+  for (int i = 0; i < n; i++)
+  {
+    cin >> trains[i].ID;
+    cin >> trains[i].FromAddress;
+    cin >> trains[i].ToAddress;
+    cin >> trains[i].DepartureTime;
+  }
+  sortTrains(trains, n);
+  return 0;
+}
+
+1007
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+using namespace std;
+struct Student {
+  int id;
+  string name;
+  string surname;
+  int sub1;
+  int sub2;
+  int sub3;
+  int sub4;
+  bool AB;
+};
+int SumOfSubjects(Student s)
+{
+  return s.sub1 + s.sub2 + s.sub3 + s.sub4;
+}
+Student* sortList(Student s[], int size)
+{
+  for (int i = 0; i < size; i++)
+  {
+    for (int j = i; j < size; j++)
+    {
+      if (SumOfSubjects(s[i]) < SumOfSubjects(s[j]))
+      {
+        Student temp = s[i];
+        s[i] = s[j];
+        s[j] = temp;
+      }
+    }
+  }
+  return s;
+}
+void GrantWinners(Student students[], int size, int grants)
+{
+  Student winners[100];
+  int indexWinners = 0;
+  
+  //find altyn belgi winners first
+  for (int i = 0; i < size; i++)
+  {
+    if (students[i].AB)
+    {
+      winners[indexWinners] = students[i];
+      indexWinners++;
+    }
+  }
+  
+  //sort students
+  sortList(students,size);
+
+  //pick top grant winners
+  int altynBelgyWinners = indexWinners;
+  for (int i = 0; i < grants; i++)
+  {
+    if (!students[i].AB)
+    {
+      winners[indexWinners] = students[i];
+      indexWinners++;
+    }
+  }
+  sortList(winners, grants);
+  for (int i = 0; i < grants; i++)
+    cout << winners[i].id << " " << winners[i].name << " " << winners[i].surname << " " << SumOfSubjects(winners[i]) << endl;
+  
+}
+int main()
+{
+  int n;
+  int grants;
+  cin >> n;
+  cin >> grants;
+  Student students[1000];
+  for (int i = 0; i < n; i++)
+  {
+    cin >> students[i].id;
+    cin >> students[i].name;
+    cin >> students[i].surname;
+    cin >> students[i].sub1;
+    cin >> students[i].sub2;
+    cin >> students[i].sub3;
+    cin >> students[i].sub4;
+    string ab;
+    cin >> ab;
+    ab == "YES" ? students[i].AB = true : students[i].AB = false;
+  }
+  GrantWinners(students,n,grants);
+  return 0;
+}
+
+1010.
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+using namespace std;
+//0 - color and location of the black checker
+//1 - color and location of the white checker
+//2 - color and location of the red checker
+//3 - color and location of the green checker
+
+struct Checkers {
+  int black = 0;
+  int white = 0;
+  int red = 0;
+  int green = 0;
+};
+void countCheckers(string str[])
+{
+  Checkers stats;
+  //count all the checkers
+  for (int i = 0; i < 8; i++)
+  {
+    for (int j = 0; j < 8; j++)
+    {
+      switch (str[i][j])
+      {
+        case '0': {stats.black++; break; }
+        case '1': {stats.white++; break; }
+        case '2': {stats.red++; break; }
+        case '3': {stats.green++; break; }
+        default: break;
+      }
+    }
+  }
+  //check if any of them is equal to 0
+  if (stats.black && stats.white && stats.red && stats.green)
+  {
+    for (int i = 0; i < 8; i++)//print the board
+    {
+      for (int j = 0; j < 8; j++)
+      {
+        if (str[i][j] != '2')
+          cout << '-';
+        else
+          cout << str[i][j];
+      }
+      cout << endl;
+    }
+    cout << endl;
+    cout << stats.black << " " << stats.white << " " << stats.red << " " << stats.green; //stats
+  }
+  else
+    cout << "BAD INPUT LIST";
+}
+int main()
+{
+  string checkers[8];
+  for (int i = 0; i < 8; i++)
+    cin >> checkers[i];
+  countCheckers(checkers);
+  return 0;
+}
+
+1011.
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+using namespace std;
+void CheckValidity(string str)
+{
+  int checker = 0;
+  if (str[0] != ')' && str[str.length() - 1] != '(')	//check if first braket is not closing and last one not opening 
+  {
+    for (int i = 0; i < str.length(); i++)
+    {
+      if (str[i] == '(')	//add 1 to checker if opening bracket met
+        checker++;
+      else			//else sumbtract 1
+        checker--;
+    }
+    if (!checker)		//if checker is 0 then its valid
+      cout << "VALID";
+    else
+      cout << "INVALID";
+  }
+  else
+    cout << "INVALID";
+}
+int main()
+{
+  string str;
+  cin >> str;
+  CheckValidity(str);
+  return 0;
+}
+
+1012.
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include<stack>
+#include <sstream>
+using namespace std;
+bool ArePair(char o, char c)
+{
+  if (o == '(' && c == ')') return true;
+  else if (o == '{' && c == '}') return true;
+  else if (o == '[' && c == ']') return true;
+  return false;
+}
+bool CheckValidity(string exp,int size)
+{
+  stack<char>  S;
+  for (int i = 0; i < size; i++)
+  {
+    if (exp[i] == '(' || exp[i] == '{' || exp[i] == '[')	//if the bracket is opening, push it into stack
+      S.push(exp[i]);
+    else if (exp[i] == ')' || exp[i] == '}' || exp[i] == ']')	
+    {
+      if (S.empty() || !ArePair(S.top(), exp[i]))  	//else if stack is empty or is not paired return false
+        return false;
+      else						//else pop the last element
+        S.pop();
+    }
+  }
+  return S.empty() ? true : false; 		//if stack is empty return true else false
+}
+
+int main()
+{
+  string str;
+  int size;
+  cin >> size;
+  cin >> str;
+  CheckValidity(str,size) ? cout << "Yes" : cout << "No";
+  return 0;
+}

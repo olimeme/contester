@@ -1,0 +1,591 @@
+901.
+#include <iostream>
+#include <cstring>
+#include <string>
+#include <vector>
+using namespace std;
+char asciitolower(char in) {
+	if (in <= 'Z' && in >= 'A')
+		return in - ('Z' - 'z');
+	return in;
+}
+bool checkAITU(string str)
+{
+	bool A = false;
+	bool I = false;
+	bool T = false;
+	bool U = false;
+	for (int i = 0; i < str.length(); i++)
+	{
+		switch (str[i])			//if any of the letters occur, set them to true
+		{
+			case 'a':
+				A++; break;
+			case 'i':
+				I++; break;
+			case 't':
+				T++; break;
+			case 'u':
+				U++; break;
+			default: break;
+		}
+	}
+	return A && I && T && U;	//if all of the letters are true, return true
+}
+int main() {
+	string str;
+	cin >> str;
+	string lowercaseStr;
+	lowercaseStr = str;
+	for (int i = 0; i < str.length(); i++)
+		lowercaseStr[i] = asciitolower(str[i]);
+	checkAITU(lowercaseStr) ? cout << "YES" : cout << "NO";
+}
+902.
+#include <iostream>
+#include <cstring>
+#include <string>
+#include <vector>
+using namespace std;
+char asciitolower(char in) {
+	if (in <= 'Z' && in >= 'A')
+		return in - ('Z' - 'z');
+	return in;
+}
+void replace(string source, string &dest)	//get the address of dest
+{
+	dest = source;
+	for (int i = 0; i < source.size(); i++)
+	{
+		if (source[i] == '!')
+			dest[i] = '.';
+		else
+			dest[i] = source[i];
+	}
+}
+int main() {
+	string sourceStr;
+	string destStr;
+	getline(cin, sourceStr);
+	replace(sourceStr, destStr);
+	cout << destStr;
+}
+903.
+#include <iostream>
+#include <cstring>
+#include <string>
+#include <vector>
+using namespace std;
+void formatNumber(string number)
+{
+  int mas[100];
+  int i = 0;
+  int j = number.length()-1;
+  while (j >= 0)		//save all numbers in array
+  {
+    mas[i] = (int)(number[j] - '0');
+    i++;
+    j--;
+  }
+
+  for (int i = number.length()-1; i >= 0; i--)	//print array elements with space every 3 element
+  {
+    cout << mas[i];
+    if (i % 3 == 0)
+      cout << " ";
+  }
+}
+int main() {
+  string number;
+  cin >> number;
+  formatNumber(number);
+}
+
+904.
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+
+using namespace std;
+string toUpper(string str)		//fucntion to convert all letters to uppercase
+{
+  for (int i = 0; i < str.length(); i++)
+    if (str[i] >= 'a' && str[i] <= 'z')
+      str[i] = char(str[i] - 32);
+  return str;
+}
+int wordCount(string str)  		//function to count number of words
+{
+  int count = 0;
+  for (int i = 0; i < str.length(); i++)
+  {
+    if (str[i] == ' ')
+      count++;
+  }
+  ++count;
+  return count;
+}
+void repeatedWord(string str)
+{
+  string upperStr = toUpper(str);		//first rewrite all the letters in uppercase
+  int wordC= wordCount(upperStr);		//then count number of words
+  string arr[wordC];
+  int i = 0;
+  stringstream ssin(upperStr);			//save all words into array
+  while (ssin.good() && i < wordC) {
+    ssin >> arr[i];
+    ++i;
+  }				
+  int repeatCount = 0;
+  int maxRepeat = 0;
+  string maxRepeatWord;
+  for (int i = 0; i < wordC; i++)		//then find most repeated word in array
+  {
+    for (int j = i; j < wordC; j++)
+    {
+      if (arr[i] == arr[j])
+        repeatCount++;
+    }
+    if (maxRepeat < repeatCount)
+    {
+      maxRepeat = repeatCount;
+      maxRepeatWord = arr[i];
+    }
+    repeatCount = 0;
+  }
+  cout << maxRepeatWord;
+}
+int main()
+{
+  string str;
+  getline(cin, str);
+  repeatedWord(str);
+}
+
+905.
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+
+using namespace std;
+string toUpper(string str)
+{
+	for (int i = 0; i < str.length(); i++)
+		if (str[i] >= 'a' && str[i] <= 'z')
+			str[i] = char(str[i] - 32);
+	return str;
+}
+int wordCount(string str)			//count number of words
+{
+	int count = 0;
+	for (int i = 0; i < str.length(); i++)
+	{
+		if (str[i] == ' ')
+			count++;
+	}
+	++count;
+	return count;
+}
+void repeatedWord(string str)
+{
+	int wordC= wordCount(str);
+	string arr[8];
+	int i = 0;
+	stringstream ssin(str);			//divide words into array of words
+	while (ssin.good() && i < 8) {
+		ssin >> arr[i];
+		++i;
+	}
+	string finalStr[100];
+	int lastElement = 0;
+	for (int i = 0; i < 8; i++)	
+	{
+		int j;
+		for (j = 0; j < i; j++)
+		{
+			if (arr[i] == arr[j])	//check if str[i] is already met
+				break;
+		}
+		if (j == i)			//if not met, then add it to final array
+			finalStr[lastElement++] = arr[i];
+	}
+	for (int i = 0; i < lastElement; i++)	//print the array
+		cout << finalStr[i] << " ";
+}
+int main()
+{
+	string str;
+	getline(cin, str);
+	repeatedWord(str);
+}
+
+906.
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+using namespace std;
+void stats(string str)
+{
+  int numbers[100][100];
+  int i = 0;
+  int numberLength = 0;
+  int maxLength = 0;
+  int indexOfMaxLength = 0;
+  int j = str.length()-1;
+  while (j >= 0)		//find sequences of numbers
+  {
+    if (str[j] <= '9' && str[j] >= '0')
+    {
+      numbers[i][numberLength] = (int)(str[j] - '0');	//if element is a number, then add 1 to number length 
+      numberLength++;
+    }
+    else
+    {
+      if (numberLength > 0)	//if number length is positive
+      {
+        if (numberLength > maxLength)	//and number length is greater than max length 
+        {
+          maxLength = numberLength;	//set number length to max 
+          indexOfMaxLength = i;		//save the row index of element 
+        }
+        i++;
+      }
+      numberLength = 0;
+    }
+    j--;
+  }
+  if (numberLength > maxLength)		//check again if number length is greater than max length 
+  {
+    maxLength = numberLength;
+    indexOfMaxLength = i;
+  }
+
+  for (int i = maxLength-1; i >= 0; i--)	//print numbers with space every 3 element 
+  {
+    cout << numbers[indexOfMaxLength][i];
+    if (i % 3 == 0)
+      cout << " ";
+
+  }
+
+}
+
+int main()
+{
+  string str;
+  getline(cin, str);
+  stats(str);
+}
+907.
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+using namespace std;
+
+void helpTribalLeader(char* str[3])
+{
+  int length[3];
+  int maxLength;
+  int tracker[3] = {};
+  int counter = 0;
+  for (int i = 0; i < 3; i++)
+    length[i] = strlen(str[i]);
+  maxLength = length[0];
+
+  if (length[1] > maxLength)    //find number with max length
+    maxLength = length[1];
+  if (length[2] > maxLength)
+    maxLength = length[2];
+
+  for (int i = 0; i < 3; i++)
+    if (length[i] == maxLength)  //if length is equal to max length
+    {
+      tracker[i] = 1;      //add 1 to its index 
+      counter++;      //add 1 to counter 
+    };
+
+  if (counter == 1)    //if there is only one number with max length, print only this number 
+  {
+    for (int i = 0; i < 3; i++)
+      if (tracker[i] == 1)
+        cout << str[i] << endl;
+  }
+  else if (counter == 3) {  //if lengths of all numbers are the same
+    if (strcmp(str[0], str[1]) > 0 && strcmp(str[0], str[2]) > 0)    //compare their content
+      cout << str[0] << endl;
+    if (strcmp(str[1], str[0]) > 0 && strcmp(str[1], str[2]) > 0)
+      cout << str[1] << endl;
+    if (strcmp(str[2], str[0]) > 0 && strcmp(str[2], str[1]) > 0)
+      cout << str[2] << endl;
+  }
+  else {
+    if (tracker[0] == 0) {    //if length of 2 numbers are equal 
+      if (strcmp(str[2], str[1]) > 0)    //compare them both 
+        cout << str[2] << endl;
+      else 
+        cout << str[1] << endl;
+    };
+    if (tracker[1] == 0) {
+      if (strcmp(str[2], str[0]) > 0) 
+        cout << str[2] << endl;
+      else 
+        cout << str[0] << endl;
+    };
+    if (tracker[2] == 0) {
+      if (strcmp(str[1], str[0]) > 0) 
+        cout << str[1] << endl;
+      else 
+        cout << str[0] << endl;
+    };
+  }
+}
+
+int main()
+{
+  char *p[3];
+  
+  for (int i = 0; i < 3; i++) 
+    p[i] = (char *)malloc(sizeof(char) * 10000);	//give more memory to each element
+  cin >> p[0] >> p[1] >> p[2];
+
+  helpTribalLeader(p);
+  return 0;
+}
+908.
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+using namespace std;
+
+void sum(char *str[2])
+{
+  int lengthOfFirst = strlen(str[0])-1;
+  int lengthOfSecond= strlen(str[1])-1;
+  char *sum;
+  int prevSum = 0;
+  int temp;
+  sum = (char *)malloc(sizeof(char) * 10000);
+  if (lengthOfFirst < lengthOfSecond)		//if second number is greater than the first one, swap them
+  {
+    swap(lengthOfFirst, lengthOfSecond);
+    swap(str[0], str[1]);
+  }
+  for (int i = 0; i <= lengthOfFirst; i++)
+  {
+    if (lengthOfSecond >= 0)		//sum numbers if second number still has digits
+    {
+      temp = (int)(str[0][lengthOfFirst-i] - '0') + (int)(str[1][lengthOfSecond] - '0') + prevSum;
+      lengthOfSecond--;
+    }
+    else 				//else save the digits of first number + sum of previous sum if it was greater than or equal to 10
+      temp = (int)(str[0][lengthOfFirst-i] - '0') + prevSum;
+    prevSum = 0;
+    if (temp >= 10)
+    {
+      temp %= 10;
+      prevSum++;
+    }
+    sum[i] = char(temp + 48);
+  }
+  if (prevSum > 0)			//if prev sum is not 0, add another digit at the end 
+  {
+    sum[lengthOfFirst + 1] = char(prevSum + 48);
+    for (int i = lengthOfFirst+1; i >= 0; i--)
+      cout << sum[i];
+  }
+  else						//then print the sum of numbers 
+    for (int i = lengthOfFirst; i >= 0; i--)
+      cout << sum[i];
+}
+
+int main()
+{
+  char *p[2];
+  for (int i = 0; i < 2; i++) 
+    p[i] = (char *)malloc(sizeof(char) * 10000);
+  cin >> p[0] >> p[1];
+  sum(p);
+  return 0;
+}
+909.
+#include <iostream>
+#include <cstring>
+#include <string>
+#include <vector>
+using namespace std;
+int divisibleBy11(string str)
+{
+  int n = str.length();
+
+  int oddSum = 0;
+  int evenSum = 0;
+  for (int i = 0; i < n; i++)
+  {
+    if (i % 2 == 0)
+      oddSum += (str[i] - '0');  //subtract 48 from the digits ASCII code to get its value
+    else
+      evenSum += (str[i] - '0');
+  }
+
+  return ((oddSum - evenSum) % 11 == 0);  //if difference of summation of odd digits and summation of even digits is divisible by 11, then whole number is divisible by 11
+}
+int main()
+{
+  string nums;
+  cin >> nums;
+  divisibleBy11(nums) ? cout << "YES" : cout << "NO";
+}
+910.
+#include <iostream>
+#include <cstring>
+#include <string>
+#include <vector>
+using namespace std;
+
+int arrowChecker(string str)
+{
+  int num = 0;
+  if (str.length() >= 5)
+  {
+    for (int i = 0; i <= str.length() - 5; i++)
+    {
+      if ((str[i] == '<'&&str[i + 1] == '-'&&str[i + 2] == '-'&&str[i + 3] == '<'&&str[i + 4] == '<')
+        || (str[i] == '>'&&str[i + 1] == '>'&&str[i + 2] == '-'&&str[i + 3] == '-'&&str[i + 4] == '>'))
+        num++;
+    }
+    return num;
+  }
+  else
+    return num;
+}
+
+int main()
+{
+  string str;
+  cin >> str;
+  int arrows = arrowChecker(str);
+  cout << arrows;
+}
+911.
+#include <iostream>
+#include <cstring>
+#include <string>
+#include <vector>
+using namespace std;
+void chessboard(int row, int col)
+{
+  for (int i = 0; i < row; i++)
+  {
+    for (int j = 0; j < col; j++)
+    {
+      if (row % 2 == 0)	//if number of rows are even 
+      {
+        if (i % 2 == 0)		//check if current row is even 
+          if (j % 2 == 0)	//then check if current column is even 
+            cout << "X";	//print X, else print .
+          else
+            cout << ".";
+        else			//if current row is odd
+          if (j % 2 == 0)	//check if current column is even 
+            cout << ".";	//print ., else print X
+          else
+            cout << "X";
+      }
+      else			//if number if rows are odd
+      {				//reverse all the actions
+        if (i % 2 == 0)
+          if (j % 2 == 0)
+            cout << ".";
+          else
+            cout << "X";
+        else
+          if (j % 2 == 0)
+            cout << "X";
+          else
+            cout << ".";
+      }
+    }
+    cout << endl;
+  }
+}
+
+int main()
+{
+  int row, col;
+  cin >> row >> col;
+  chessboard(row, col);
+}
+912.
+#include <iostream>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+using namespace std;
+void stats(string str)
+{
+  double word = 0;
+  double sum = 0;
+  double wordCount = 0;
+  for (int i = 0; i < str.length(); i++)
+  {
+    if ((str[i] <= 'z' && str[i] >= 'a')||		//if current element is letter then add 1 to word length
+      (str[i] <= 'Z' && str[i] >= 'A'))
+      word++;
+    else
+    {
+      if (word != 0)					//else check if word length is not equal to 0
+      {
+        wordCount++;					//add 1 to number of words
+        sum += word;					//add word length to sum 
+        word = 0;					//reset the word length 
+      }
+    }
+  }
+  if (!wordCount)					//check if word count is equal to 0
+    printf("%.1f", word);				//then print the word length 
+  else
+  {							//else check if average number of letters is divisible without leftovers
+    double avg = (double)(sum / wordCount);
+    if((int)avg - avg == 0)
+      printf("%.1f", avg);				//if so, then print the average number with 1 decimal place precision 
+    else 
+      cout << setprecision(10) << avg;			//else print the number with 10 decimal places precision 
+  }
+
+}
+
+int main()
+{
+  string str;
+  getline(cin, str);
+  stats(str);
+}

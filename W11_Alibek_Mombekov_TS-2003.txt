@@ -1,0 +1,176 @@
+1101
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+using namespace std;
+int main()
+{
+  string text;
+  getline(cin, text);
+  string find;
+  getline(cin, find);
+  int found = text.find(find);
+  cout << found;
+  return 0;
+}
+
+1102
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+using namespace std;
+void toUpper(string& str) {
+  for (int x = 0; x < str.length(); x++)
+    str[x] = toupper(str[x]);
+}
+int main()
+{
+  string text;
+  getline(cin, text);
+  string find;
+  getline(cin, find);
+  toUpper(text);
+  toUpper(find);
+  int found = text.find(find);
+  cout << found;
+  return 0;
+}
+
+1103
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+using namespace std;
+void toUpper(string& str) {
+  for (int x = 0; x < str.length(); x++)
+    str[x] = toupper(str[x]);
+}
+int main()
+{
+  string text;
+  getline(cin, text);
+  string find;
+  getline(cin, find);
+  int found = text.rfind(find);
+  cout << found;
+  return 0;
+}
+
+1104.
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+using namespace std;
+void toUpper(string& str) {
+  for (int x = 0; x < str.length(); x++)
+    str[x] = toupper(str[x]);
+}
+int main()
+{
+  string text;
+  getline(cin, text);
+  string find;
+  getline(cin, find);
+  string s = "example string";
+  for (int i = 0; i < find.length(); i++)
+    replace(text.begin(), text.end(), find[i], '*'); 
+  cout << text;
+  return 0;
+}
+
+1106.
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+using namespace std;
+void toUpper(string& str) {
+  for (int x = 0; x < str.length(); x++)
+    str[x] = toupper(str[x]);
+}
+void reverse(string &str)
+{
+  for (int i = 0; i < str.length() / 2; i++)
+    swap(str[i], str[str.length() -i - 1]);
+}
+int main()
+{
+  string text;
+  getline(cin, text);
+  reverse(text);
+  cout << text;
+  return 0;
+}
+
+1110.
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+using namespace std;
+void toUpper(string& str) {
+  for (int x = 0; x < str.length(); x++)
+    str[x] = toupper(str[x]);
+}
+void toLower(string& str) {
+  for (int x = 0; x < str.length(); x++)
+    str[x] = tolower(str[x]);
+}
+int main()
+{
+  string str1;
+  string str2;
+  getline(cin, str1);
+  getline(cin, str2);
+  bool same = true;
+  if (str1.length() == str2.length())		//if lengths of strings are not equal dont check
+  {
+    sort(str1.begin(), str1.end());	//sort both string alphabeticaly
+    sort(str2.begin(), str2.end());	
+    for (int i = 0; i < str1.length(); i++)	
+      if (str1[i] != str2[i])	//if at least one character doesnt match, strings are not anagram
+      {
+        same = false;
+        break;
+      }
+    same ? cout << "YES" : cout << "NO";
+  }
+  else
+    cout << "NO";
+  return 0;
+}
+

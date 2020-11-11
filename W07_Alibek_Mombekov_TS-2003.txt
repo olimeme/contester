@@ -1,0 +1,149 @@
+701.
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+
+int fibonacci(int n)
+{
+  return n <= 1 ? n : fibonacci(n - 1) + fibonacci(n - 2);	//call the function until n is not less than 1
+}
+
+int main()
+{
+  int n;
+  cin >> n;
+  cout << fibonacci(n);
+}
+
+702.
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+
+void printback(int n)
+{ 
+  if (n != 0)			//input the number until n isn't equal to 0, on the way back from function print entered numbers
+  {
+    int number;
+    cin >> number;
+    n--;
+    printback(n); 
+    cout << number << " "; 
+  }
+}
+
+int main(int argc, char *argv[])
+{
+  int n;
+  cin >> n;
+  printback(n);
+  return 0;
+}
+
+703.
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+void printback(int n)
+{ 
+  if (n != 0)		//input the strings until n isn't equal to 0, on the way back from function print entered strings
+  {
+    string str;
+    cin >> str;
+    n--;
+    printback(n); 
+    cout << str <<endl; 
+  }
+}
+
+int main()
+{
+  int n;
+  cin >> n;
+  printback(n);
+  return 0;
+}
+
+704.
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+void Spiral(int msize, int a[100][100], int size, int value) {
+  if (size < 1)
+    return;
+  int row = (msize - size) / 2;
+  int col= (msize - size) / 2;
+  if (size == 1) {		//if size equals to 1 then return 1
+    a[row][col] = value;
+    return;
+  }
+  for (int i = 0; i < size - 1; i++)		//moves to the right 
+    a[row][col++] = value++;    //right
+  for (int i = 0; i < size - 1; i++)		//moves to the down
+    a[row++][col] = value++;    //down
+  for (int i = 0; i < size - 1; i++)		//moves to the left
+    a[row][col--] = value++;    //left
+  for (int i = 0; i < size - 1; i++)		//moves to the up 
+    a[row--][col] = value++;    //up
+  Spiral(msize, a, size - 2, value);		//repeat until the end of spiral
+}
+
+int main() {
+  int size;
+  cin >> size;
+  int a[100][100];
+  Spiral(size, a, size, 1);
+  for (int i = 0; i < size; i++) {
+    for (int j = 0; j < size; j++)
+      cout << a[i][j] << " ";
+    cout << endl;
+  }
+  return 0;
+}
+
+705.
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+void output(int arr[], int number, int size, int index)
+{
+  int i;  
+  if (size != 0)		
+  {
+    for (i = 1; i <= number; ++i)	//loop until i reaches the number, decreasing size by 1 and moving to the next element 
+    {
+      arr[index] = i;
+      output(arr, number, size - 1, index + 1);	
+    }
+  }
+  else {				//print the sequence when size equals to 0
+    for (int i = 0; i < index; i++)
+      cout << arr[i] << " ";
+    cout << endl;
+  }
+}
+int main() {
+  int size,number;
+  cin >> size >> number;
+  int arr[100] = {};
+  output(arr, number, size,0);
+  return 0;
+}
