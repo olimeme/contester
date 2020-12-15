@@ -1,0 +1,70 @@
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cstdio>
+#include <sstream>
+using namespace std;
+struct Player {
+	string name;
+	char* country;
+};
+struct Club {
+	char* name;
+	int footballerCount;
+	Player* players;
+};
+template <typename T>
+void freeMemory(T* object, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		for (int j = 0; j < object[i].footballerCount; j++)
+			delete[] object[i].players[j].country;
+		delete[] object[i].players;
+		delete[] object[i].name;
+	}
+}
+void findClubs(Club* clubs, string search,int size)
+{
+	for (int i = 0; i < size; i++)
+		for (int j = 0; j < clubs[i].footballerCount; j++)
+			if (clubs[i].players[j].country == search)
+			{
+				cout << clubs[i].name << endl;
+				break;
+			}
+}
+int main()
+{
+	int n;
+	cin >> n;
+	Club* clubs = new Club[n];
+	for (int i = 0; i < n; i++)
+	{
+		clubs[i].name = new char[50];
+		cin.ignore();
+		cin.getline(clubs[i].name,50);
+		cin >> clubs[i].footballerCount;
+		clubs[i].players = new Player[clubs[i].footballerCount];
+		for (int j = 0; j < clubs[i].footballerCount; j++) {
+			clubs[i].players[j].country = new char[50];
+			cin >> clubs[i].players[j].name >> clubs[i].players[j].country;
+		}
+	}
+	string searchWord;
+	cin >> searchWord;
+	findClubs(clubs, searchWord, n);
+	freeMemory(clubs,n);
+	return 0;
+}
+
+
+
+
+
+
+
